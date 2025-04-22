@@ -54,8 +54,9 @@ function drawTerms() {
   let margin = 60;
   let y = margin;
   let terms = [
-    "By accessing this website, you agree to the following terms.",
-    "You agree to let us watch you while you browse.",
+    "58.1. The distribution of files created by AWS Media Services may require that you obtain license rights from third parties", 
+    "including owners or licensors of certain third party audio and video formats. You are solely responsible for obtaining such 
+    "licenses and paying any necessary royalties or fees.",
     "You agree to forget what you were searching for.",
     "You agree to never read this, and still proceed.",
     "You agree that your memories may be harvested.",
