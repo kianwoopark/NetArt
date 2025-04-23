@@ -7,8 +7,7 @@ let percentage = 0;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   redLayer = createGraphics(width, height);
-  redLayer.background(255, 0, 0); // solid red
-
+  redLayer.background(255, 0, 0);
   totalPixels = width * height;
 
   textFont('Georgia');
@@ -19,11 +18,7 @@ function setup() {
 
 function draw() {
   background(255);
-
-  // Draw the fake TOS (could be replaced with real text HTML/CSS)
   drawTerms();
-
-  // Draw and update the red overlay
   image(redLayer, 0, 0);
 
   if (mouseIsPressed) {
@@ -32,7 +27,6 @@ function draw() {
     redLayer.noErase();
   }
 
-  // Calculate percentage revealed
   let pixels = redLayer.get().pixels;
   revealedPixels = 0;
   for (let i = 3; i < pixels.length; i += 4) {
@@ -42,8 +36,6 @@ function draw() {
   }
 
   percentage = floor((revealedPixels / totalPixels) * 100);
-
-  // Display percentage (top-left)
   fill(50);
   noStroke();
   textSize(16);
@@ -54,9 +46,8 @@ function drawTerms() {
   let margin = 60;
   let y = margin;
   let terms = [
-    "58.1. The distribution of files created by AWS Media Services may require that you obtain license rights from third parties", 
-    "including owners or licensors of certain third party audio and video formats. You are solely responsible for obtaining such 
-    "licenses and paying any necessary royalties or fees.",
+    "By accessing this website, you agree to the following terms.",
+    "You agree to let us watch you while you browse.",
     "You agree to forget what you were searching for.",
     "You agree to never read this, and still proceed.",
     "You agree that your memories may be harvested.",
