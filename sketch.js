@@ -1,19 +1,49 @@
 let brushSize = 40;
 let redLayer;
-let revealedPixels = 0;
-let totalPixels;
-let percentage = 0;
+let terms = [];
+let termsText = [
+  "By accessing this website, you agree to the following terms.",
+  "You agree to let us watch you while you browse.",
+  "You agree to forget what you were searching for.",
+  "You agree to never read this, and still proceed.",
+  "You agree that your memories may be harvested.",
+  "You agree to continue scrolling until your sense of self dissolves.",
+  "You agree to the illusion of choice.",
+  "You agree to give consent retroactively.",
+  "You agree that we may change these terms without notice.",
+  "You agree that you’ve already agreed."
+];
+let agreeButton;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   redLayer = createGraphics(width, height);
   redLayer.background(255, 0, 0);
-  totalPixels = width * height;
-
   textFont('Georgia');
   textSize(16);
   fill(0);
   noStroke();
+
+  // Randomize term positions
+  for (let t of termsText) {
+    let x = random(50, width - 300);
+    let y = random(50, height - 100);
+    terms.push({ text: t, x: x, y: y });
+  }
+
+  // Create AGREE button
+  agreeButton = createButton('AGREE');
+  agreeButton.position((windowWidth / 2) - 40, windowHeight - 50);
+  agreeButton.style('padding', '10px 20px');
+  agreeButton.style('font-family', 'Georgia');
+  agreeButton.style('font-size', '16px');
+  agreeButton.style('background-color', '#000');
+  agreeButton.style('color', '#fff');
+  agreeButton.style('border', 'none');
+  agreeButton.style('cursor', 'pointer');
+  agreeButton.mousePressed(() => {
+    alert("You’ve already agreed.");
+  });
 }
 
 function draw() {
@@ -26,42 +56,18 @@ function draw() {
     redLayer.ellipse(mouseX, mouseY, brushSize);
     redLayer.noErase();
   }
-
-  let pixels = redLayer.get().pixels;
-  revealedPixels = 0;
-  for (let i = 3; i < pixels.length; i += 4) {
-    if (pixels[i] === 0) {
-      revealedPixels++;
-    }
-  }
-
-  percentage = floor((revealedPixels / totalPixels) * 100);
-  fill(50);
-  noStroke();
-  textSize(16);
-  text(`${percentage}%`, 20, 30);
 }
 
 function drawTerms() {
-  let margin = 60;
-  let y = margin;
-  let terms = [
-    "By accessing this website, you agree to the following terms.",
-    "You agree to let us watch you while you browse.",
-    "You agree to forget what you were searching for.",
-    "You agree to never read this, and still proceed.",
-    "You agree that your memories may be harvested.",
-    "You agree to continue scrolling until your sense of self dissolves.",
-    "You agree to the illusion of choice.",
-    "You agree to give consent retroactively.",
-    "You agree that we may change these terms without notice.",
-    "You agree that you’ve already agreed."
-  ];
-
   fill(0);
   textSize(16);
   for (let t of terms) {
-    text(t, margin, y, width - 2 * margin);
-    y += 40;
+    text(t.text, t.x, t.y, 250);
   }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  redLayer.resizeCanvas(windowWidth, windowHeight);
+  agreeButton.position((windowWidth / 2) - 40, windowHeight - 50);
 }
